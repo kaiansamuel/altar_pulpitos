@@ -1,0 +1,12 @@
+{
+  "name": "altar-pulpitos",
+  "private": true,
+  "workspaces": ["apps/*"],
+  "scripts": {
+    "dev": "npm run dev -w @altar/web",
+    "dev:api": "npm run start:dev -w @altar/api",
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces",
+    "lint": "npm run lint --workspaces"
+  }
+}
