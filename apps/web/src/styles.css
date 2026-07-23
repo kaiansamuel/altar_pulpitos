@@ -33,3 +33,20 @@ body { background:var(--paper); } .header { max-width:1280px; min-height:84px; }
 @keyframes trust-marquee { from { transform:translateX(0); } to { transform:translateX(-50%); } }
 @media (prefers-reduced-motion:reduce) { .marquee-track { width:100%; white-space:normal; flex-wrap:wrap; justify-content:center; animation:none; transform:none; } .marquee-group[aria-hidden="true"] { display:none; } .marquee-group { min-width:0; flex-wrap:wrap; justify-content:center; padding:18px 22px; } }
 @media (max-width:760px) { .marquee-group { gap:16px; font-size:12px; padding-top:18px; padding-bottom:18px; } }
+
+/* Entrada das seções conforme o scroll. */
+.reveal { opacity:0; transform:translateY(28px); transition:opacity 560ms ease-out var(--reveal-delay,0ms),transform 560ms ease-out var(--reveal-delay,0ms); }
+.reveal.is-visible { opacity:1; transform:translateY(0); }
+.reveal .product-card,.reveal .benefit-grid article,.reveal .process li,.reveal .faq-list details { opacity:0; transform:translateY(20px); transition:opacity 420ms ease-out,transform 420ms ease-out; }
+.reveal.is-visible .product-card,.reveal.is-visible .benefit-grid article,.reveal.is-visible .process li,.reveal.is-visible .faq-list details { opacity:1; transform:translateY(0); }
+.reveal.is-visible .product-card:nth-child(2),.reveal.is-visible .benefit-grid article:nth-child(2),.reveal.is-visible .process li:nth-child(2),.reveal.is-visible .faq-list details:nth-child(2) { transition-delay:100ms; }
+.reveal.is-visible .product-card:nth-child(3),.reveal.is-visible .benefit-grid article:nth-child(3),.reveal.is-visible .process li:nth-child(3),.reveal.is-visible .faq-list details:nth-child(3) { transition-delay:200ms; }
+.reveal.is-visible .product-card:nth-child(4) { transition-delay:300ms; }.reveal.is-visible .product-card:nth-child(5) { transition-delay:400ms; }.reveal.is-visible .product-card:nth-child(6) { transition-delay:500ms; }
+@media (prefers-reduced-motion:reduce) { .reveal,.reveal .product-card,.reveal .benefit-grid article,.reveal .process li,.reveal .faq-list details { opacity:1; transform:none; transition:none; } }
+
+.whatsapp-float { position:fixed; z-index:20; right:24px; bottom:24px; min-height:54px; display:flex; align-items:center; gap:9px; padding:0 18px; border-radius:28px; color:#fff; background:#25d366; box-shadow:0 10px 24px #13231442; font-weight:700; font-size:14px; transition:transform 180ms ease-out,background 180ms ease-out,box-shadow 180ms ease-out; }
+.whatsapp-float:hover { color:#fff; background:#1eae52; transform:translateY(-3px); box-shadow:0 14px 28px #13231455; }
+.whatsapp-float:focus-visible { outline-color:#fff; }
+@media (max-width:760px) { .whatsapp-float { right:16px; bottom:16px; width:56px; padding:0; justify-content:center; border-radius:50%; } .whatsapp-float span { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; } }
+
+footer a { color:var(--gold); font-weight:700; text-decoration:underline; text-underline-offset:3px; }

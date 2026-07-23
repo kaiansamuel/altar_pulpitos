@@ -1,7 +1,7 @@
 import { ArrowRight, Check, ChevronDown, ChevronRight, Factory, Gem, Menu, MessageCircle, Ruler, ShieldCheck, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
-import { Link, NavLink, Route, Routes, useParams } from 'react-router-dom';
+import { Link, NavLink, Route, Routes, useLocation, useParams } from 'react-router-dom';
 import { api } from './api';
 import type { Category, Product } from './types';
 import { Admin } from './Admin';
@@ -15,7 +15,7 @@ import pulpitoTriploPrataImage from './assets/pulpito-triplo-prata-igreja.png';
 import pulpitoPretoImage from './assets/pulpito-preto-igreja.png';
 import pulpitoTriploMarromImage from './assets/pulpito-triplo-marrom-igreja.png';
 
-const whatsapp = import.meta.env.VITE_WHATSAPP_NUMBER ?? '5511999999999';
+const whatsapp = import.meta.env.VITE_WHATSAPP_NUMBER ?? '5562981200649';
 const pulpitosCategory: Category = { id: 'pulpitos', name: 'Púlpitos', slug: 'pulpitos' };
 const makeProduct = (name: string, slug: string, description: string, dimensions: string, image: string, sortOrder: number): Product => ({ id: slug, name, slug, description, dimensions, isPublished: true, sortOrder, categoryId: 'pulpitos', category: pulpitosCategory, images: [{ id: `${slug}-igreja`, url: image, alt: `${name} instalado em ambiente de igreja`, sortOrder: 0 }] });
 const catalogFallback: Product[] = [
@@ -29,8 +29,20 @@ const catalogFallback: Product[] = [
 ];
 
 function Header() { const [open, setOpen] = useState(false); return <header className="header"><Link to="/" className="brand" aria-label="Altar Púlpitos, página inicial"><img src={brandLogo} alt="Altar Púlpitos"/></Link><button className="menu-button" onClick={() => setOpen(!open)} aria-label={open ? 'Fechar menu' : 'Abrir menu'}>{open ? <X /> : <Menu />}</button><nav className={open ? 'nav open' : 'nav'} onClick={() => setOpen(false)}><NavLink to="/catalogo">Púlpitos</NavLink><NavLink to="/sobre">A fábrica</NavLink><NavLink to="/contato">Contato</NavLink><Link className="button button-small" to="/catalogo">Pedir orçamento</Link></nav></header> }
-function Footer() { return <footer><div><img className="footer-logo" src={brandLogo} alt="Altar Púlpitos"/><p>Púlpitos direto da fábrica para igrejas em todo o Brasil.</p></div><div><strong>Atendimento</strong><p>Segunda a sexta, 8h às 18h</p></div><p>© {new Date().getFullYear()} Altar Púlpitos</p></footer> }
-function Layout({ children }: { children: React.ReactNode }) { return <><Header/><main>{children}</main><Footer/></> }
+function Footer() { return <footer><div><img className="footer-logo" src={brandLogo} alt="Altar Púlpitos"/><p>Púlpitos direto da fábrica para igrejas em todo o Brasil.</p></div><div><strong>Atendimento</strong><p>Segunda a sexta, 8h às 18h</p></div><p>© {new Date().getFullYear()} Altar Púlpitos · Desenvolvido por <a href="https://evoluxx-olive.vercel.app" target="_blank" rel="noreferrer">Evolux</a></p></footer> }
+function Layout({ children }: { children: React.ReactNode }) {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>('main > section, footer'));
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reducedMotion) { targets.forEach(target => target.classList.add('is-visible')); return; }
+    targets.forEach((target, index) => { target.classList.add('reveal'); target.style.setProperty('--reveal-delay', `${Math.min(index * 45, 180)}ms`); });
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } }), { threshold: 0.12, rootMargin: '0px 0px -48px' });
+    targets.forEach(target => observer.observe(target));
+    return () => observer.disconnect();
+  }, [pathname]);
+  return <><Header/><main>{children}</main><Footer/><a className="whatsapp-float" href={`https://wa.me/${whatsapp}`} target="_blank" rel="noreferrer" aria-label="Falar com a Altar Púlpitos pelo WhatsApp"><MessageCircle size={28}/><span>WhatsApp</span></a></>
+}
 function ProductImage({ product }: { product: Product }) { return product.images[0] ? <img src={product.images[0].url} alt={product.images[0].alt || product.name} loading="lazy"/> : <div className="product-placeholder" aria-label={`Imagem indisponível de ${product.name}`}><span>AP</span></div> }
 function Home() { const [products, setProducts] = useState<Product[]>([]); useEffect(() => { api.products().then(items => setProducts(items.length ? items : catalogFallback)).catch(() => setProducts(catalogFallback)); }, []); return <Layout>
   <section className="hero hero-new"><div className="hero-copy"><p className="eyebrow">PÚLPITOS DIRETO DA FÁBRICA</p><h1>Presença, elegância e propósito no altar.</h1><p className="lead">Púlpitos produzidos para valorizar cada ministração. Escolha seu modelo e receba atendimento direto de quem fabrica.</p><div className="hero-actions"><Link className="button" to="/catalogo">Ver modelos <ArrowRight size={18}/></Link><a className="button button-outline" href={`https://wa.me/${whatsapp}`} target="_blank" rel="noreferrer"><MessageCircle size={18}/> Falar com especialista</a></div><div className="hero-badges"><span><Check size={16}/> Fabricação própria</span><span><Check size={16}/> Envio para todo Brasil</span></div></div><div className="hero-brand-card"><img src={pulpitoTriploMarromImage} alt="Púlpito Triplo Marrom em ambiente de igreja"/><div className="brand-card-line"/><p>Projetado para<br/><strong>servir com excelência.</strong></p></div></section>
