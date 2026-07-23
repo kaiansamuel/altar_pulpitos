@@ -23,3 +23,13 @@ body { background:var(--paper); } .header { max-width:1280px; min-height:84px; }
 .hero-brand-card .brand-card-line,.hero-brand-card p { position:relative; z-index:1; }
 .hero-brand-card p { color:#fff; }
 .hero-brand-card strong { color:#e2b966; }
+
+/* Faixa contínua de diferenciais: deslocamento da direita para a esquerda. */
+.trust-bar { display:block; overflow:hidden; padding:0; white-space:nowrap; }
+.marquee-track { display:flex; width:max-content; animation:trust-marquee 28s linear infinite; will-change:transform; }
+.marquee-group { display:flex; align-items:center; gap:24px; min-width:max-content; padding:23px 24px 23px 0; color:#fff; font-size:14px; text-transform:uppercase; letter-spacing:.08em; }
+.marquee-group strong { font-weight:700; }
+.marquee-group span { color:var(--gold); font-size:20px; line-height:0; }
+@keyframes trust-marquee { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+@media (prefers-reduced-motion:reduce) { .marquee-track { width:100%; white-space:normal; flex-wrap:wrap; justify-content:center; animation:none; transform:none; } .marquee-group[aria-hidden="true"] { display:none; } .marquee-group { min-width:0; flex-wrap:wrap; justify-content:center; padding:18px 22px; } }
+@media (max-width:760px) { .marquee-group { gap:16px; font-size:12px; padding-top:18px; padding-bottom:18px; } }
