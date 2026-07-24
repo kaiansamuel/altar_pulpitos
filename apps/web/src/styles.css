@@ -97,6 +97,16 @@ body { background:var(--paper); } .header { max-width:1280px; min-height:84px; }
 .factory-statement .eyebrow { color:#e2b966; }
 .factory-statement h2 { font-size:clamp(2.4rem,4vw,4rem); }
 .factory-statement p:not(.eyebrow) { margin:20px 0 0; color:#dbd6cf; font-size:17px; line-height:1.75; }
+.contact-hero { max-width:1280px; min-height:610px; margin:auto; padding:82px 28px 95px; display:grid; grid-template-columns:.95fr 1.05fr; gap:72px; align-items:center; }
+.contact-hero-copy > p:not(.eyebrow) { max-width:535px; margin:25px 0 31px; color:var(--muted); font-size:18px; line-height:1.7; }
+.contact-hero-copy .hero-actions { align-items:center; }
+.contact-hero-copy .text-link { margin-top:0; }
+.contact-hero-image { position:relative; min-height:440px; overflow:hidden; background:var(--dark); }
+.contact-hero-image::after { content:''; position:absolute; inset:0; background:linear-gradient(0deg,rgba(25,24,25,.86),rgba(25,24,25,.05) 64%); }
+.contact-hero-image img { display:block; width:100%; height:100%; object-fit:cover; }
+.contact-hero-image div { position:absolute; z-index:1; left:34px; right:34px; bottom:31px; display:grid; gap:9px; color:#fff; }
+.contact-hero-image span { color:#e2b966; font-size:11px; font-weight:700; letter-spacing:.14em; }
+.contact-hero-image strong { font:clamp(1.8rem,3vw,2.6rem)/1.05 'Playfair Display',serif; }
 
 .whatsapp-float { position:fixed; z-index:20; right:24px; bottom:24px; min-height:54px; display:flex; align-items:center; gap:9px; padding:0 18px; border-radius:28px; color:#fff; background:#25d366; box-shadow:0 10px 24px #13231442; font-weight:700; font-size:14px; transition:transform 180ms ease-out,background 180ms ease-out,box-shadow 180ms ease-out; }
 .whatsapp-float:hover { color:#fff; background:#1eae52; transform:translateY(-3px); box-shadow:0 14px 28px #13231455; }
@@ -117,6 +127,9 @@ body { background:var(--paper); } .header { max-width:1280px; min-height:84px; }
   .factory-process li { grid-template-columns:58px 1fr; gap:14px; }
   .factory-statement > div:last-child { padding:60px 22px 68px; }
   .factory-statement-image { min-height:0; aspect-ratio:4 / 3; }
+  .contact-hero { min-height:0; grid-template-columns:1fr; gap:42px; padding:56px 22px 68px; }
+  .contact-hero-image { min-height:0; aspect-ratio:4 / 3; }
+  .contact-hero-image div { left:24px; right:24px; bottom:24px; }
 }
 
 footer a { color:var(--gold); font-weight:700; text-decoration:underline; text-underline-offset:3px; }

@@ -18,6 +18,16 @@ O administrador inicial usa `ADMIN_EMAIL` e `ADMIN_PASSWORD` definidos no arquiv
 - `npm test` executa os testes unitários.
 - `npm run build` gera as versões de produção da API e do site.
 
+## Publicação do frontend na Vercel
+
+Para o lançamento somente do site público, configure no projeto da Vercel a variável de ambiente `VITE_WHATSAPP_NUMBER` com o número completo, incluindo o código do país:
+
+```env
+VITE_WHATSAPP_NUMBER=5562981200649
+```
+
+Use `npm run build -w @altar/web` como comando de build e `apps/web/dist` como diretório de saída. A rota `/admin` permanece no código para uma etapa posterior e depende da API.
+
 ## Variáveis
 
-Não versionar `.env`. Use somente `.env.example` como referência. As variáveis `S3_*` configuram o upload de imagens e `VITE_WHATSAPP_NUMBER` pode ser adicionado para substituir o número de demonstração no frontend.
+Não versionar `.env`. Use somente `.env.example` como referência. As variáveis `S3_*` configuram o upload de imagens. No lançamento do frontend, configure `VITE_WHATSAPP_NUMBER` na Vercel; o valor padrão do código também aponta para o número oficial informado.
