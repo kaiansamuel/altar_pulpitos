@@ -2,7 +2,7 @@
 
 ## Estrutura do projeto
 
-O repositório está em fase inicial. Atualmente, `prd.md` deve concentrar os requisitos do produto e `logo_altar_pultipos.jpeg` é o ativo visual disponível. Ao iniciar a aplicação, mantenha uma estrutura previsível:
+O repositório está em fase inicial. Atualmente, `prd.md` deve concentrar os requisitos do produto e `assets/originais/logo_altar_pultipos.jpeg` é o ativo visual disponível. Ao iniciar a aplicação, mantenha uma estrutura previsível:
 
 - `src/` para o código-fonte;
 - `tests/` para testes automatizados;
